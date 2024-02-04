@@ -11,5 +11,16 @@ jobs:
     name: "Run Integration Tests"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        run: echo "Placeholder step"
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "${{ env.GO_VERSION }}"
+
+      - name: Set root dir envvar
+        run: echo "CANTER_ROOT=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+
+      - name: Run Tests
+        run: go test ./test/integration/... -v -count=1 -tags=integration
+        env:
+          CANTER_ENVIRONMENT: test
