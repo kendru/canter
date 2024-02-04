@@ -7,10 +7,11 @@ operation and does not implement sharding or any distributed features.
 
 ## Goals
 
-[ ] Provide an embedded triplestore as a Go library
-[ ] Provide a SPARQL endpoint for querying data externally
-[ ] Focus on performance over flexibility. For example, all predicates/attributes must be declared with a specific type ahead of time.
-[ ] Allow time travel queries
+- Provide an embedded triplestore as a Go library
+- Provide a SPARQL endpoint for querying data externally
+- Focus on performance over flexibility. For example, all predicates/attributes
+must be declared with a specific type ahead of time.
+- Allow time travel queries
 
 ## Developing
 
