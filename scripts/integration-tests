@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## integration-tests
+##
+## Runs all integration tests
+
+set -e
+
+cd "$CANTER_ROOT"
+
+# When we have external dependencies, start them here.
+
+
+# Run integration tests against test db.
+env \
+  CANTER_ENVIRONMENT="test" \
+  go test ./test/integration/... -v -count=1 -tags=integration

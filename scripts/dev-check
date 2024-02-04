@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source "$(dirname "${BASH_SOURCE[0]}")/include"
+
+printf "Checking for direnv... "
+if [[ -z "${CANTER_ENVRC_ACTIVE}" ]] ; then
+    printf "\033[31mERROR\033[0m\n"
+    exit_with_error "Direnv is not installed or is blocked. See https://direnv.net/"
+fi
+printf "\033[32mOK\033[0m\n"
+
+OS=$(uname -s)
+
+ensure_cmd_exists git
+ensure_cmd_exists go
+
