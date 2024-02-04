@@ -1,0 +1,15 @@
+name: Integration Tests
+
+on:
+  workflow_call: {}
+
+env:
+  GO_VERSION: "1.21.0"
+
+jobs:
+  integration-tests:
+    name: "Run Integration Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: echo "Placeholder step"

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.gen.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: gen
+        run: echo "version=$(git rev-parse --short "${{ github.sha }}")" >> "$GITHUB_OUTPUT"
+
+  call-build:
+    uses: ./.github/workflows/build.yml
+
+  call-integration-tests:
+    uses: ./.github/workflows/integration-tests.yml
+    # Only run if basic build is successful.
+    needs:
+      - call-build
