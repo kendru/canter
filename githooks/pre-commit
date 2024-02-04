@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-# dev comment-code --all-files
-# unit-tests
+go generate "${CANTER_ROOT}/..."
+dev comment-code --all-files
+unit-tests

@@ -128,8 +128,14 @@ func applyLicenseComment(filename string, licenseText string) error {
 	}
 
 	// Check for a license comment.
+	if len(lines) < 1 {
+		return nil
+	}
 	if len(lines) > 2 && strings.HasPrefix(lines[0], "/*") &&
 		strings.Contains(lines[3], "Licensed under the Apache License, Version 2.0") {
+		return nil
+	}
+	if strings.Contains(lines[0], "DO NOT EDIT.") {
 		return nil
 	}
 
