@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+## Runs the dev CLI.
+
+cd "${CANTER_ROOT}/cmd/dev"
+go_exec="$(mktemp)"
+clean_up () {
+    ARG=$?
+    rm "$go_exec"
+    exit $ARG
+}
+trap clean_up EXIT
+
+go build -o "$go_exec" *.go
+if [ $? -ne 0 ]; then
+    echo "Failed to build dev CLI"
+    exit 1
+fi
+
+cd "$CANTER_ROOT"
+"$go_exec" "${@}"

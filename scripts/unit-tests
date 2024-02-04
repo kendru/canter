@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## unit-tests
+##
+## Runs all unit tests.
+
+set -e
+
+# Run unit tests.
+go test ./...

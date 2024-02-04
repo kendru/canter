@@ -1,0 +1,49 @@
+function pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
+
+# check_cmd_success runs any command that is passed in, redirecting all output to /dev/null.
+# This is useful when we need to check the result of a command, but we do not care about its
+# output.
+function check_cmd_success() {
+    "$@" &>/dev/null
+}
+
+# exit_with_error prints an error message and exits with a generic
+# error code.
+function exit_with_error() {
+    msg="$1"
+    echo ""
+    echo -e "\033[31;1mERROR:\033[0m $msg"
+    exit 1
+}
+
+function cmd_exists() {
+    command -v "$1" &>/dev/null
+}
+
+function check_cmd_exists() {
+    printf "Checking for command: $1...\t"
+    if cmd_exists $1 ; then
+        printf "\033[32mOK\033[0m\n"
+        return 0
+    else
+        printf "\033[31mMISSING\033[0m\n"
+        return 1
+    fi
+}
+
+function ensure_cmd_exists() {
+    if ! check_cmd_exists "$1" ; then
+        exit_with_error "Command not found: $1"
+    fi
+}
+
+export -f \
+    pathadd \
+    check_cmd_success \
+    check_cmd_exists \
+    exit_with_error \
+    ensure_cmd_exists
